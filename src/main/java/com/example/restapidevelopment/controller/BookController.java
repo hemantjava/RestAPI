@@ -1,0 +1,50 @@
+package com.example.restapidevelopment.controller;
+
+import com.example.restapidevelopment.dto.Book;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+@Log4j2
+@RestController
+@RequestMapping("/book")
+public class BookController {
+   private static List<Book> bookList = Arrays.asList(Book.builder()
+                    .id(12345)
+                    .author("Rao")
+                    .name("Black book")
+                    .build(),
+            Book.builder()
+                    .id(12346)
+                    .author("Gosling")
+                    .name("Java")
+                    .build());
+
+
+    //localhost:8384/book/list
+    @GetMapping("/list")
+    public ResponseEntity<List<Book>> getBookList(){
+       ResponseEntity responseEntity = new ResponseEntity<>(bookList, HttpStatus.OK);
+       log.info(responseEntity);
+        return responseEntity;
+    }
+
+    //localhost:8384/book/id/12346
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable  int id){
+          Optional<Book> optionalBook = bookList.stream().filter(b->b.getId()==id).findAny();
+          if(optionalBook.isPresent()) {
+              ResponseEntity responseEntity  = new ResponseEntity<Book>(optionalBook.get(), HttpStatus.OK);
+              log.info(responseEntity);
+              return responseEntity;
+          }
+        ResponseEntity responseEntity1  = new ResponseEntity<>(Book.builder().build(), HttpStatus.NOT_FOUND);
+        log.info(responseEntity1);
+        return responseEntity1;
+    }
+
+}
