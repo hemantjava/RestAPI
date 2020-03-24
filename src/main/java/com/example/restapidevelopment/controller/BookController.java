@@ -33,7 +33,8 @@ public class BookController {
         return responseEntity;
     }
 
-    //localhost:8384/book/id/12346
+    //localhost:8384/book/id/12346  //valid input
+    //localhost:8384/book/id/12349   //invalid input
     @GetMapping("/id/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable  int id){
           Optional<Book> optionalBook = bookList.stream().filter(b->b.getId()==id).findAny();
