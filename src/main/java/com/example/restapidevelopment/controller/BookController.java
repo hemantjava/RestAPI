@@ -71,7 +71,6 @@ public class BookController {
             up.setName(book.getName());
             return up;
         }).collect(Collectors.toList()).get(0);
-        bookList.add(updatedUser);
         return new ResponseEntity<Book>(updatedUser, HttpStatus.CREATED);
     }
 
