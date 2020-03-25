@@ -16,13 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value="Field Management System", description="Operations pertaining to fields in Field Management System")
 @RestController
 @RequestMapping("/filter")
-public class FilteringController {
-
-  /*  @GetMapping("/filter/static")
-    public SomeBean getSomeBean(){
-        SomeBean someBean = new SomeBean("Field1","Field2","Field3","Field4");
-        return  someBean;
-    }*/
+public class DynamicFilteringController {
 
     @GetMapping("/dynamic1")
 
