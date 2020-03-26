@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/person")
-public class PersonController {
+public class PersonJPAController {
 
     @Autowired
     private PersonRepository personRepository;
