@@ -1,4 +1,4 @@
-package com.example.restapidevelopment;
+package com.example.restapidevelopment.config;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SuppressWarnings("ALL")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

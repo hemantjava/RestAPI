@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/filter")
 public class DynamicFilteringController {
+    /**
+     *  localhost:8384/filter/v1   ->URI versioning
+     *
+     */
 
-    @GetMapping("/dynamic1")
-
+    @GetMapping(value = {"/dynamic1","/v1"})
     @ApiOperation(value = "View a list of available Field1,Field2 ", response = MappingJacksonValue.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
@@ -36,7 +39,11 @@ public class DynamicFilteringController {
         return mapping;
     }
 
-    @GetMapping("/dynamic2")
+    /**
+     *  localhost:8384/filter/v2   ->URI versioning
+     *
+     */
+    @GetMapping(value = {"/dynamic2","/v2"})
     @ApiOperation(value = "View a list of available Field3,Field4 ", response = MappingJacksonValue.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
