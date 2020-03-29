@@ -35,19 +35,32 @@ public class RestApiDevelopmentApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		List<Person> personList  = DummyData.getPeople();
 		List<Car> carList  = DummyData.getCars();
-		personRepository.deleteAll();
-		carRepository.deleteAll();
-		List<Person> personList1  = personRepository.saveAll(personList);
-		List<Car> carList1 =  carRepository.saveAll(carList);
-				if(!personList1.isEmpty()){
-			       log.info("List of people table is created");
-				}else {
-					log.info("List of people table is not created");
-				}
-		      if(!carList1.isEmpty()){
-			log.info("List of car table is created");
-		    }else {
-			log.info("List of car table is not created");
-		   }
+		long personCount = personRepository.count();
+		long carCount = carRepository.count();
+		if (personCount>=50)
+			log.info("Person record more than 50 no longer deletion records : "+personCount +" >= 50");
+		else {
+			personRepository.deleteAll();
+			List<Person> personList1  = personRepository.saveAll(personList);
+			if(!personList1.isEmpty()){
+				log.info("List of people table is created and records are : "+personRepository.count());
+			}else {
+				log.info("List of people table is not created");
+			}
+		}
+		if(carCount>=50)
+			log.info("Car record more than 50 no longer deletion records :"+carCount +" >= 50");
+		else {
+			carRepository.deleteAll();
+			List<Car> carList1 =  carRepository.saveAll(carList);
+			if(!carList1.isEmpty()){
+				log.info("List of car table is created and records are :"+carRepository.count());
+			}else {
+				log.info("List of car table is not created");
+			}
+		}
+
+
+
 	}
 }
