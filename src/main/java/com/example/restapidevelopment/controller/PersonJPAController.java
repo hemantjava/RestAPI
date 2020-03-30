@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.restapidevelopment.exception.*;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/person")
@@ -34,36 +37,45 @@ public class PersonJPAController {
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         Optional<Person> personOptional = personRepository.findById(id);
-        if (personOptional.isPresent())
+        if (!personOptional.isPresent())
+            throw new UserNotFoundException("user id not present : "+id);
             return new ResponseEntity<>(personOptional.get(), HttpStatus.OK);
-        return new ResponseEntity<>(id+"resource not available", HttpStatus.NOT_FOUND);
 
     }
 
     // http://localhost:8384/person/deleteById/20
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Integer id) {
-           if(personRepository.existsById(id)) {
+           if(!personRepository.existsById(id)) {
+               throw new UserNotFoundException("Person id not present : "+id);
+
+           }else{
                personRepository.deleteById(id);
-               return new ResponseEntity<>(id + ": id person deleted", HttpStatus.OK);
            }
-        return new ResponseEntity<>(id + ": id not present", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(id +": deleted", HttpStatus.OK);
     }
 
     // http://localhost:8384/person/create
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Person person) {
        Person person1 = personRepository.saveAndFlush(person);
-       if(personRepository.existsById(person1.getId()))
+       if(!personRepository.existsById(person1.getId()))
+           throw new UnAuthenticException("New person record not created");
         return new ResponseEntity<>("Id: "+person1.getId()+ ": new present created", HttpStatus.CREATED);
-        return new ResponseEntity<>("Id: "+person1.getId()+ ": new present not created", HttpStatus.BAD_REQUEST);
+
     }
 
     // http://localhost:8384/person/update
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody Person person) {
+       boolean bool = personRepository.existsById(person.getId());
+        System.out.println(bool);
+       if (!bool) {
+           new UnAuthenticException("Given resource not available ");
+       }
         Person person1 = personRepository.save(person);
-        return new ResponseEntity<>(person1+ ": new present created", HttpStatus.CREATED);
+        return new ResponseEntity<>(person1+ ": present updated", HttpStatus.CREATED);
     }
 
 }
