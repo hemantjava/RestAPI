@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonFilter("SomeBeanFilter")
 public class SomeBean {
     private String field1;
