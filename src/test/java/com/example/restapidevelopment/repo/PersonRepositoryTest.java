@@ -32,4 +32,10 @@ class PersonRepositoryTest {
         assertNotNull(personList);
         log.info("personList :"+personList);
     }
+
+    @Test
+    @Transactional
+    void deleteByAge() {
+        personRepository.deleteById(30);
+    }
 }

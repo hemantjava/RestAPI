@@ -1,6 +1,7 @@
 package com.example.restapidevelopment.controller;
 
 import com.example.restapidevelopment.entity.Person;
+import com.example.restapidevelopment.exception.UnAuthenticException;
 import com.example.restapidevelopment.repo.PersonRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -95,9 +96,11 @@ class PersonJPAControllerTest {
     @Test
     void createBadRequest() {
         when(personRepository.saveAndFlush(any(Person.class))).thenReturn(setUp().get(1));
-        ResponseEntity entity = personJPAController.create(setUp().get(0));
-        String result = (String) entity.getBody();
-        assertEquals(HttpStatus.BAD_REQUEST,entity.getStatusCode());
+
+        Exception exception = assertThrows(
+                UnAuthenticException.class,
+                () -> personJPAController.create(setUp().get(0)));
+        assertEquals("New person record not created",exception.getMessage());
 
     }
 
