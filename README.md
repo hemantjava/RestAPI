@@ -16,6 +16,10 @@ http://localhost:8384/h2
 #Active profile is:-
 spring.profiles.active=h2
 
+# Actuator see health of application 
+http://localhost:8384/actuator
+http://localhost:8384/actuator/mappings
+
 
 Oracle JDBC Driver compatible with JDK6, JDK7, and JDK8
 
