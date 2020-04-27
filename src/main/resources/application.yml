@@ -1,8 +1,13 @@
-server.port=8384
-spring.profiles.active=h2
-management.endpoints.web.exposure.include=*
-spring.security.user.name=username
-spring.security.user.password=password
+server:
+  port: 8384
+---
+spring:
+  profiles:
+  active: h2
+---
+logging:
+  config: classpath:logconfig/log4j2.xml
+
 #spring.jpa.show-sql=true
 #logging.level.org.springframework=debug
 #############################  H2  #################################

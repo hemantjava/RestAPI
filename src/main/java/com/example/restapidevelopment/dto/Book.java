@@ -2,10 +2,7 @@ package com.example.restapidevelopment.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Size;
 
@@ -15,6 +12,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @ApiModel("Represent list of Book's Details")
 public class Book {
+    @NonNull
+    @Size(min = 4)
     long id;
     String name;
     @Size(min = 3)
