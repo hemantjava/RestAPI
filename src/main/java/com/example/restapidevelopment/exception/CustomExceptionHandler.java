@@ -27,4 +27,11 @@ public class CustomExceptionHandler
         return new ResponseEntity<ErrorResponse>(error,HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public final ResponseEntity<ErrorResponse> handleUnAuthenticRuntime(RuntimeException ex)
+    {
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_GATEWAY.value(),ex.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<ErrorResponse>(error,HttpStatus.BAD_GATEWAY);
+    }
+
 }

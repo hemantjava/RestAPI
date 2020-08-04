@@ -11,7 +11,7 @@ spring.datasource.username=sa
 spring.datasource.password=
  
 # Custom H2 Console URL
-http://localhost:8384/h2
+http://localhost:8384/h2-console
 
 #Active profile is:-
 spring.profiles.active=h2

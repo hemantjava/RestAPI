@@ -3,6 +3,7 @@ package com.example.restapidevelopment.list;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class ListNullCheck {
         return collection == null || collection.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    private boolean isNotNullOrEmpty(Collection collection) {
+    private boolean isNotNullAndEmpty(Collection collection) {
         return collection == null || collection.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
     }
 
@@ -20,7 +21,7 @@ public class ListNullCheck {
     void testE() {
         List<String> strings = getList();
         System.out.println(isNullOrEmpty(strings));
-        System.out.println(isNotNullOrEmpty(strings));
+        System.out.println(isNotNullAndEmpty(strings));
 
     }
 

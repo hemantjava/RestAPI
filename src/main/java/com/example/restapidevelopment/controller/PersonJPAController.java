@@ -38,7 +38,7 @@ public class PersonJPAController {
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         Optional<Person> personOptional = personRepository.findById(id);
         if (!personOptional.isPresent())
-            throw new UserNotFoundException("user id not present : "+id);
+            throw new RuntimeException("user id not present : "+id);
             return new ResponseEntity<>(personOptional.get(), HttpStatus.OK);
 
     }
