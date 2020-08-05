@@ -1,5 +1,6 @@
 package com.example.restapidevelopment.repo;
 
+import com.example.restapidevelopment.dto.PersonDto;
 import com.example.restapidevelopment.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -25,6 +26,9 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
 
    @Query("Select email From Person")
    List<String> getEmail();
+
+   @Query("Select new com.example.restapidevelopment.dto.PersonDto(id,firstName,age) From Person")
+   List<PersonDto> getPartialData();
 
    @Query(value = "Select FIRST_NAME From PERSON",nativeQuery = true)
    List<String> findFirstName();

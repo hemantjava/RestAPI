@@ -1,5 +1,6 @@
 package com.example.restapidevelopment.repo;
 
+import com.example.restapidevelopment.dto.PersonDto;
 import com.example.restapidevelopment.entity.Person;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -77,5 +78,12 @@ class PersonRepositoryTest {
     void changeGender(){
         Integer male = personRepository.changeGender(54, "Male");
         log.info(male);
+    }
+    
+    @Test
+    void getPartialData(){
+        Optional<List<PersonDto>> partialData = Optional.ofNullable(personRepository.getPartialData());
+        if(partialData.isPresent())
+            log.info(partialData.get());
     }
 }

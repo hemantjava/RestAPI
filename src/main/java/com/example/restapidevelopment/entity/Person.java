@@ -25,5 +25,4 @@ public class Person {
    String gender;
    Integer age;
 
-
 }
