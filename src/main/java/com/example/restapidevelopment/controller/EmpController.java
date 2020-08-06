@@ -1,0 +1,49 @@
+package com.example.restapidevelopment.controller;
+
+import com.example.restapidevelopment.dto.EmpRequest;
+import com.example.restapidevelopment.dto.EmpResponse;
+import com.example.restapidevelopment.entity.Emp;
+import com.example.restapidevelopment.service.EmpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/app")
+public class EmpController {
+
+    @Autowired
+    private EmpService empService;
+
+
+    //localhost:8384//app/all
+    @GetMapping("/all")
+    public ResponseEntity<List<EmpResponse>> getAll() {
+        List<EmpResponse> all = empService.getAll();
+        return new ResponseEntity<>(all, HttpStatus.OK);
+    }
+
+    //localhost:8384//app/save
+    @PostMapping("/save")
+    public ResponseEntity<EmpResponse> saveEmp(@RequestBody Emp emp){
+        EmpResponse empResponse = empService.save(emp);
+        return new ResponseEntity<>(empResponse, HttpStatus.OK);
+    }
+
+    //localhost:8384//app/update
+    @PutMapping("/update")
+    public ResponseEntity<EmpResponse> updateEmp(@RequestBody EmpRequest emp){
+        EmpResponse empResponse = empService.update(emp);
+        return new ResponseEntity<>(empResponse, HttpStatus.OK);
+    }
+
+    //localhost:8384//app/updateData
+    @PutMapping("/updateData")
+    public ResponseEntity<EmpResponse> updateData(@RequestBody EmpRequest emp){
+        EmpResponse empResponse = empService.updateData(emp);
+        return new ResponseEntity<>(empResponse, HttpStatus.OK);
+    }
+}

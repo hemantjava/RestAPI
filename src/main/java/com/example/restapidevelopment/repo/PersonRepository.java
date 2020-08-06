@@ -27,6 +27,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
    @Query("Select email From Person")
    List<String> getEmail();
 
+   //Partial data fetching
    @Query("Select new com.example.restapidevelopment.dto.PersonDto(id,firstName,age) From Person")
    List<PersonDto> getPartialData();
 

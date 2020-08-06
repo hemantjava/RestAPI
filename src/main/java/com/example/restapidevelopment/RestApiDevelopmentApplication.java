@@ -1,7 +1,9 @@
 package com.example.restapidevelopment;
 
 import com.example.restapidevelopment.config.DummyData;
+import com.example.restapidevelopment.controller.EmpRepository;
 import com.example.restapidevelopment.entity.Car;
+import com.example.restapidevelopment.entity.Emp;
 import com.example.restapidevelopment.entity.Person;
 import com.example.restapidevelopment.repo.CarRepository;
 import com.example.restapidevelopment.repo.PersonRepository;
@@ -11,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,6 +29,22 @@ public class RestApiDevelopmentApplication implements CommandLineRunner {
 	@Autowired
 	private CarRepository carRepository;
 
+	@Autowired
+	private EmpRepository empRepository;
+
+	void empInitData() {
+		empRepository.saveAll(Arrays.asList(
+				Emp.builder()
+						.name("Hemant")
+						.build(),
+				Emp.builder()
+						.name("Kumar")
+						.build(),
+				Emp.builder()
+						.name("Sahu")
+						.build()));
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiDevelopmentApplication.class, args);
@@ -33,8 +52,9 @@ public class RestApiDevelopmentApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Person> personList  = DummyData.getPeople();
-		List<Car> carList  = DummyData.getCars();
+		empInitData();
+		List<Person> personList = DummyData.getPeople();
+		List<Car> carList = DummyData.getCars();
 		long personCount = personRepository.count();
 		long carCount = carRepository.count();
 		if (personCount>=50)
