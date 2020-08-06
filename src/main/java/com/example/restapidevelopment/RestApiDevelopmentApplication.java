@@ -7,12 +7,18 @@ import com.example.restapidevelopment.entity.Emp;
 import com.example.restapidevelopment.entity.Person;
 import com.example.restapidevelopment.repo.CarRepository;
 import com.example.restapidevelopment.repo.PersonRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 

@@ -29,4 +29,5 @@ public class Emp {
     private LocalDateTime joiningDate;
     @UpdateTimestamp
     private LocalDateTime leavingDate;
+
 }

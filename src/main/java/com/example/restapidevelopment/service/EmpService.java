@@ -26,12 +26,7 @@ public class EmpService {
         if (!CollectionUtils.isEmpty(all)) {
             all.forEach(x -> {
                 empResponses.add(EmpResponse.builder()
-                        .emp(Emp.builder()
-                                .id(x.getId())
-                                .joiningDate(x.getJoiningDate())
-                                .leavingDate(x.getLeavingDate())
-                                .name(x.getName())
-                                .build())
+                        .emp(x)
                         .build());
             });
 
