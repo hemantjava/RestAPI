@@ -1,6 +1,6 @@
 package com.example.restapidevelopment.service;
 
-import com.example.restapidevelopment.controller.EmpRepository;
+import com.example.restapidevelopment.repo.EmpRepository;
 import com.example.restapidevelopment.dto.EmpRequest;
 import com.example.restapidevelopment.dto.EmpResponse;
 import com.example.restapidevelopment.entity.Emp;
