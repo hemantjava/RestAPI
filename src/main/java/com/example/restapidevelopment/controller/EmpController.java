@@ -7,6 +7,7 @@ import com.example.restapidevelopment.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,5 +53,16 @@ public class EmpController {
     public ResponseEntity<EmpResponse> updateData(@RequestBody EmpRequest emp){
         EmpResponse empResponse = empService.updateData(emp);
         return new ResponseEntity<>(empResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/clearAllCaches")
+    public void clearAllCaches() {
+        empService.evictAllCaches();
+    }
+
+    //AutoCached after 6 second delete
+    @Scheduled(fixedRate = 6000)
+    public void evictAllCachesAtIntervals() {
+        empService.evictAllCaches();
     }
 }

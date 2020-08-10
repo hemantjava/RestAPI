@@ -80,4 +80,9 @@ public class EmpService {
         cacheManager.getCache("emp").clear(); //clean cache for every new entry
        return EmpResponse.builder().emp(empRepository.findById(id).get()).build();
     }
+    public void evictAllCaches() {
+        cacheManager.getCacheNames().stream()
+                .forEach(cacheName -> cacheManager.getCache(cacheName).clear());
+    }
+
 }
