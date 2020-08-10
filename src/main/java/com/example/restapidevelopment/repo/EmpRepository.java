@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface EmpRepository extends JpaRepository<Emp,Integer> {
 
@@ -13,4 +14,5 @@ public interface EmpRepository extends JpaRepository<Emp,Integer> {
     @Modifying
     @Query("update Emp e set e.name= ?2 , e.leavingDate =?3 where e.id= ?1")
     public Integer update(Integer id, String name,LocalDateTime localDateTime);
+    List<Emp> findByName(String name);
 }

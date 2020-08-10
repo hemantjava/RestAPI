@@ -65,4 +65,10 @@ public class EmpController {
     public void evictAllCachesAtIntervals() {
         empService.evictAllCaches();
     }
+
+    //localhost:8384//app/getEmpByName/{name}
+    @GetMapping("/getEmpByName/{name}")
+    public ResponseEntity<List<Emp>> getEmpByName(String name) {
+        return new ResponseEntity<>(empService.findByName(name), HttpStatus.OK);
+    }
 }

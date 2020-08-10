@@ -43,7 +43,7 @@ public class RestApiDevelopmentApplication implements CommandLineRunner {
 						.name("Kumar")
 						.build(),
 				Emp.builder()
-						.name("Sahu")
+						.name("Kumar")
 						.build()));
 	}
 

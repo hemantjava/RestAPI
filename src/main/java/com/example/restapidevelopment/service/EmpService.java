@@ -85,4 +85,8 @@ public class EmpService {
                 .forEach(cacheName -> cacheManager.getCache(cacheName).clear());
     }
 
+    public List<Emp> findByName(String name){
+       return empRepository.findByName(name);
+    }
+
 }
