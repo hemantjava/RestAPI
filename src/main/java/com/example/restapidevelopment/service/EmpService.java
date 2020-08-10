@@ -5,6 +5,8 @@ import com.example.restapidevelopment.dto.EmpRequest;
 import com.example.restapidevelopment.dto.EmpResponse;
 import com.example.restapidevelopment.entity.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +18,9 @@ import java.util.Optional;
 
 @Service
 public class EmpService {
+
+    @Autowired
+    private CacheManager cacheManager;
 
     @Autowired
     private EmpRepository empRepository;
@@ -67,5 +72,12 @@ public class EmpService {
                 return EmpResponse.builder().emp(byId.get()).build();
         }
         return null;
+    }
+
+    @Cacheable("emp")  // cache created with emp name
+    public EmpResponse findById(Integer id) {
+        System.out.println("-------->findById:"+id);
+        cacheManager.getCache("emp").clear(); //clean cache for every new entry
+       return EmpResponse.builder().emp(empRepository.findById(id).get()).build();
     }
 }

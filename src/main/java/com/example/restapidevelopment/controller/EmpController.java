@@ -26,6 +26,13 @@ public class EmpController {
         return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
+    //localhost:8384//app/findById/{id}
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<EmpResponse> findById(Integer id) {
+        EmpResponse mep = empService.findById(id);
+        return new ResponseEntity<>(mep, HttpStatus.OK);
+    }
+
     //localhost:8384//app/save
     @PostMapping("/save")
     public ResponseEntity<EmpResponse> saveEmp(@RequestBody Emp emp){
