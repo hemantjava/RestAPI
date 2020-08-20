@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -46,6 +49,7 @@ class PersonRepositoryTest {
         }
     }
 
+
     @Test
     void findFirstName() {
         List<String> firstName = personRepository.findFirstName();
@@ -79,11 +83,22 @@ class PersonRepositoryTest {
         Integer male = personRepository.changeGender(54, "Male");
         log.info(male);
     }
-    
+
     @Test
-    void getPartialData(){
+    void getPartialData() {
         Optional<List<PersonDto>> partialData = Optional.ofNullable(personRepository.getPartialData());
-        if(partialData.isPresent())
+        if (partialData.isPresent())
             log.info(partialData.get());
     }
+
+    @Test
+    void getPage() {
+        Pageable pageable = PageRequest.of(58, 17);
+        final Page<Person> all = personRepository.findAll(pageable);
+        all.stream().forEach(System.out::println);
+        log.info(all.getNumberOfElements());
+        log.info(all.getTotalPages());
+    }
+
+
 }

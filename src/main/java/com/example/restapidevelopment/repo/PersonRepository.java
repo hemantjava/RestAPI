@@ -2,6 +2,8 @@ package com.example.restapidevelopment.repo;
 
 import com.example.restapidevelopment.dto.PersonDto;
 import com.example.restapidevelopment.entity.Person;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,11 +26,19 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
    List<Person> findByAgeGreaterThanEqual(Integer age);
    List<Person> findByAgeIn(Collection<Integer> ages);
 
-   @Query("Select email From Person")
+   @Override
+   Page<Person> findAll(Pageable pageable);
+
+   @Query("Select p.email From Person p")  //LIMIT 1
    List<String> getEmail();
+   //findTop1ByOrderByKpmcEocRegionidUpdateDatetimeDesc
+
+
+
+
 
    //Partial data fetching
-   @Query("Select new com.example.restapidevelopment.dto.PersonDto(id,firstName,age) From Person")
+   @Query("Select new com.example.restapidevelopment.dto.PersonDto(firstName,age) From Person")
    List<PersonDto> getPartialData();
 
    @Query(value = "Select FIRST_NAME From PERSON",nativeQuery = true)

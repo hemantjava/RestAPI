@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDto {
-    String firstName;
-    Integer age;
+public class EmailDto {
 
+    String email;
 }

@@ -6,6 +6,7 @@ import com.example.restapidevelopment.dto.EmpResponse;
 import com.example.restapidevelopment.entity.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +27,7 @@ public class EmpService {
     private EmpRepository empRepository;
 
     public List<EmpResponse> getAll() {
+        System.out.println("getAll");
         final List<EmpResponse> empResponses = new LinkedList<>();
         List<Emp> all = empRepository.findAll();
         if (!CollectionUtils.isEmpty(all)) {
@@ -80,6 +82,7 @@ public class EmpService {
         cacheManager.getCache("emp").clear(); //clean cache for every new entry
        return EmpResponse.builder().emp(empRepository.findById(id).get()).build();
     }
+
     public void evictAllCaches() {
         cacheManager.getCacheNames().stream()
                 .forEach(cacheName -> cacheManager.getCache(cacheName).clear());
