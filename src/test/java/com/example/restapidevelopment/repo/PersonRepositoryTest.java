@@ -2,6 +2,8 @@ package com.example.restapidevelopment.repo;
 
 import com.example.restapidevelopment.dto.PersonDto;
 import com.example.restapidevelopment.entity.Person;
+import lombok.Builder;
+import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,5 +103,15 @@ class PersonRepositoryTest {
         log.info(all.getTotalPages());
     }
 
+    @Test
+    void findByAgeIn() {
+        List<Object[]> byAgeIn = personRepository.findByAgeIn(Arrays.asList(55));
+        for (int i = 0; i < byAgeIn.size(); i++) {
+            Object[] objects = byAgeIn.get(i);
+            System.out.println(objects[0] + "," + objects[1] + "," + objects[2] + "," + objects[3]);
+        }
+
+
+    }
 
 }

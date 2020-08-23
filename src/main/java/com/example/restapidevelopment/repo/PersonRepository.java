@@ -24,7 +24,9 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
    List<Person> findByAgeLessThanEqual(Integer age);
    List<Person> findByAgeGreaterThan(Integer age);
    List<Person> findByAgeGreaterThanEqual(Integer age);
-   List<Person> findByAgeIn(Collection<Integer> ages);
+
+   @Query(value = "Select ID,AGE,EMAIL,FIRST_NAME From PERSON where AGE = ?1",nativeQuery = true)
+   List<Object[]> findByAgeIn(Collection<Integer> ages);
 
    @Override
    Page<Person> findAll(Pageable pageable);
