@@ -2,16 +2,12 @@ package com.example.restapidevelopment.repo;
 
 import com.example.restapidevelopment.dto.PersonDto;
 import com.example.restapidevelopment.entity.Person;
-import lombok.Builder;
-import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -32,7 +28,7 @@ class PersonRepositoryTest {
 
     @Test
     @Transactional
-    void findAllByAge() {
+    void findAllByAge ( ) {
         List<Person> personList = personRepository.findAllByAge(30).get();
         assertNotNull(personList);
         log.info("personList :" + personList);
@@ -40,12 +36,12 @@ class PersonRepositoryTest {
 
     @Test
     @Transactional
-    void deleteByAge() {
+    void deleteByAge ( ) {
         personRepository.deleteById(30);
     }
 
     @Test
-    void getListOfMail() {
+    void getListOfMail ( ) {
         List<String> email = personRepository.getEmail();
         if (!CollectionUtils.isEmpty(email)) {
             log.info(email);
@@ -54,7 +50,7 @@ class PersonRepositoryTest {
 
 
     @Test
-    void findFirstName() {
+    void findFirstName ( ) {
         List<String> firstName = personRepository.findFirstName();
         if (!CollectionUtils.isEmpty(firstName)) {
             log.info(firstName);
@@ -62,7 +58,7 @@ class PersonRepositoryTest {
     }
 
     @Test
-    void changeName() {
+    void changeName ( ) {
         personRepository.changeName(70, "Hemant");
         Optional<Person> byId = personRepository.findById(70);
         if (byId.isPresent())
@@ -70,32 +66,34 @@ class PersonRepositoryTest {
     }
 
     @Test
-    void getPersonCount(){
+    void getPersonCount ( ) {
         long personCount = personRepository.getPersonCount();
         log.info(personCount);
     }
+
     @Test
-    void findByGenderAndAge(){
+    void findByGenderAndAge ( ) {
         List<Person> peopleList = personRepository.findByGenderAndAge("Male", 61);
-        if(!CollectionUtils.isEmpty(peopleList))
-           log.info(peopleList);
+        if (!CollectionUtils.isEmpty(peopleList))
+            log.info(peopleList);
     }
 
     @Test
-    void changeGender(){
+    void changeGender ( ) {
         Integer male = personRepository.changeGender(54, "Male");
         log.info(male);
     }
 
     @Test
-    void getPartialData() {
+    void getPartialData ( ) {
         Optional<List<PersonDto>> partialData = Optional.ofNullable(personRepository.getPartialData());
         if (partialData.isPresent())
             log.info(partialData.get());
     }
 
     @Test
-    void getPage() {
+    void getPage ( ) {
+        //Pageable
         Pageable pageable = PageRequest.of(58, 17);
         final Page<Person> all = personRepository.findAll(pageable);
         all.stream().forEach(System.out::println);
@@ -104,14 +102,20 @@ class PersonRepositoryTest {
     }
 
     @Test
-    void findByAgeIn() {
+    void findByAgeIn ( ) {
         List<Object[]> byAgeIn = personRepository.findByAgeIn(Arrays.asList(55));
         for (int i = 0; i < byAgeIn.size(); i++) {
             Object[] objects = byAgeIn.get(i);
             System.out.println(objects[0] + "," + objects[1] + "," + objects[2] + "," + objects[3]);
         }
+    }
 
+    @Test
+    void testExample ( ) {
 
+        Example<Person> example =  Example.<Person>of(Person.builder().id(null).age(55).build(), ExampleMatcher.matching().withIgnoreNullValues());
+        final List<Person> people = personRepository.findAll(example,Sort.by(Sort.Direction.DESC,"firstName"));
+        people.forEach(System.out::println);
     }
 
 }
