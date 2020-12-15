@@ -35,13 +35,10 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
    List<String> getEmail();
    //findTop1ByOrderByKpmcEocRegionidUpdateDatetimeDesc
 
-
-
-
-
    //Partial data fetching
    @Query("Select new com.example.restapidevelopment.dto.PersonDto(firstName,age) From Person")
    List<PersonDto> getPartialData();
+
 
    @Query(value = "Select FIRST_NAME From PERSON",nativeQuery = true)
    List<String> findFirstName();

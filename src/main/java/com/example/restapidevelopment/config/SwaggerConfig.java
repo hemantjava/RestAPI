@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -39,7 +40,9 @@ public class SwaggerConfig {
                 .apiInfo(apiEndPointsInfo())
                 .consumes(DEFAULT_PRODUCES_AND_CONSUMES)
                 .produces(DEFAULT_PRODUCES_AND_CONSUMES)
-                .select().paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .select()//.paths(Predicates.not(PathSelectors.regex("/error.*"))) // not required if mention basePackage
+               // .paths(PathSelectors.ant("/book/*"))  // to specific controller
+                .apis(RequestHandlerSelectors.basePackage("com.example.restapidevelopment.controller"))
                 .build();
     }
 }
