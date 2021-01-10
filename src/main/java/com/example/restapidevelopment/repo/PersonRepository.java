@@ -25,7 +25,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
    List<Person> findByAgeGreaterThan(Integer age);
    List<Person> findByAgeGreaterThanEqual(Integer age);
 
-   @Query(value = "Select ID,AGE,EMAIL,FIRST_NAME From PERSON where AGE = ?1",nativeQuery = true)
+   @Query(value = "Select ID,AGE,EMAIL,FIRST_NAME From PERSON where AGE in(?1)",nativeQuery = true)
    List<Object[]> findByAgeIn(Collection<Integer> ages);
 
    @Override
@@ -37,7 +37,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
 
    //Partial data fetching
    @Query("Select new com.example.restapidevelopment.dto.PersonDto(firstName,age) From Person")
-   List<PersonDto> getPartialData();
+   List<PersonDto> findByPartialData();
 
 
    @Query(value = "Select FIRST_NAME From PERSON",nativeQuery = true)

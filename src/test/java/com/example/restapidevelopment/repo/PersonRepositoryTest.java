@@ -86,7 +86,7 @@ class PersonRepositoryTest {
 
     @Test
     void getPartialData ( ) {
-        Optional<List<PersonDto>> partialData = Optional.ofNullable(personRepository.getPartialData());
+        Optional<List<PersonDto>> partialData = Optional.ofNullable(personRepository.findByPartialData());
         if (partialData.isPresent())
             log.info(partialData.get());
     }
@@ -103,7 +103,7 @@ class PersonRepositoryTest {
 
     @Test
     void findByAgeIn ( ) {
-        List<Object[]> byAgeIn = personRepository.findByAgeIn(Arrays.asList(55));
+        List<Object[]> byAgeIn = personRepository.findByAgeIn(Arrays.asList(55,66));
         for (int i = 0; i < byAgeIn.size(); i++) {
             Object[] objects = byAgeIn.get(i);
             System.out.println(objects[0] + "," + objects[1] + "," + objects[2] + "," + objects[3]);

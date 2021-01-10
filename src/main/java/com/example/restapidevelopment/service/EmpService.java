@@ -9,9 +9,11 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import javax.transaction.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class EmpService {
     @Autowired
     private EmpRepository empRepository;
 
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<EmpResponse> getAll() {
         System.out.println("getAll");
         final List<EmpResponse> empResponses = new LinkedList<>();
