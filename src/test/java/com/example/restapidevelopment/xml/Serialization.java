@@ -1,13 +1,12 @@
 package com.example.restapidevelopment.xml;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.junit.jupiter.api.Test;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
-import java.io.File;
 import java.io.IOException;
 
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class Serialization {
 

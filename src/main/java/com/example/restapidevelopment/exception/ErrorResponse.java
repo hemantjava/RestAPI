@@ -1,11 +1,10 @@
 package com.example.restapidevelopment.exception;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

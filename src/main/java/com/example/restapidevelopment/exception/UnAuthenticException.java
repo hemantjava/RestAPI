@@ -1,7 +1,12 @@
 package com.example.restapidevelopment.exception;
 
 public class UnAuthenticException extends RuntimeException {
-    public UnAuthenticException(String error){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public UnAuthenticException(String error){
         super(error);
     }
 }
