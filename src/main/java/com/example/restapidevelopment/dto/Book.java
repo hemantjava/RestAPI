@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class Book {
     @NonNull
     @Size(min = 4)
-    long id;
+   private Long id;
     String name;
     @Size(min = 3)
     @ApiModelProperty("Author name should be 3 characters ")

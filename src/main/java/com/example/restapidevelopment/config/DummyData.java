@@ -22,6 +22,15 @@ public class DummyData {
         return  personList;
     }
 
+    public static List<Person> getPeoplev2() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ClassLoader classLoader = DummyData.class.getClassLoader();
+        //using file
+        File file = new File(classLoader.getResource("peoplev2.json").getFile());
+        List<Person> personList = objectMapper.readValue(file, new TypeReference<List<Person>>(){});
+        return  personList;
+    }
+
     public static List<Car> getCars() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ClassLoader classLoader = DummyData.class.getClassLoader();
