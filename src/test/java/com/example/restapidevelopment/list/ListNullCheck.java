@@ -1,18 +1,19 @@
 package com.example.restapidevelopment.list;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 public class ListNullCheck {
 
-    private boolean isNullOrEmpty(Collection<String> collection) {
+    private boolean isNullOrEmpty(Collection collection) {
         return collection == null || collection.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    private boolean isNotNullAndEmpty(Collection<String> collection) {
+    private boolean isNotNullAndEmpty(Collection collection) {
         return collection == null || collection.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
     }
 
