@@ -13,6 +13,9 @@ import java.net.URL;
 import java.util.List;
 
 public class DummyData {
+  @Autowired
+  private ResourceLoader resourceLoader;
+
     public static List<Person> getPeople() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ClassLoader classLoader = DummyData.class.getClassLoader();
@@ -46,6 +49,24 @@ public class DummyData {
         URL url = new URL("https://jsonplaceholder.typicode.com/todos");
         List<Todo> todoList = objectMapper.readValue(url, new TypeReference<List<Todo>>(){});
         return  todoList;
+    }
+    
+        public  List<Person> personList() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Resource resource = resourceLoader.getResource("classpath:people.json");
+        InputStream input = resource.getInputStream();
+        List<Person> personList = objectMapper.readValue(input, new TypeReference<List<Person>>() {
+        });
+        return personList;
+    }
+
+    public static List<Car> carList() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Resource resource = new ClassPathResource("cars.json");
+        InputStream input = resource.getInputStream();
+        List<Car> cars = objectMapper.readValue(input, new TypeReference<List<Car>>() {
+        });
+        return cars;
     }
 
 }
