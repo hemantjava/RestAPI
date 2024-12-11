@@ -1,23 +1,21 @@
 package com.example.restapidevelopment;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.example.restapidevelopment.config.DummyData;
+import com.example.restapidevelopment.repo.EmpRepository;
+import com.example.restapidevelopment.entity.Car;
+import com.example.restapidevelopment.entity.Emp;
+import com.example.restapidevelopment.entity.Person;
+import com.example.restapidevelopment.repo.CarRepository;
+import com.example.restapidevelopment.repo.PersonRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
-import com.example.restapidevelopment.config.DummyData;
-import com.example.restapidevelopment.entity.Car;
-import com.example.restapidevelopment.entity.Emp;
-import com.example.restapidevelopment.entity.Person;
-import com.example.restapidevelopment.repo.CarRepository;
-import com.example.restapidevelopment.repo.EmpRepository;
-import com.example.restapidevelopment.repo.PersonRepository;
-
-import lombok.extern.log4j.Log4j2;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * http://localhost:8384/swagger-ui.html   <i>swagger home page</i>

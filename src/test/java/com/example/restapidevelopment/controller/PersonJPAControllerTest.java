@@ -1,17 +1,9 @@
 package com.example.restapidevelopment.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
+import com.example.restapidevelopment.entity.Person;
+import com.example.restapidevelopment.exception.UnAuthenticException;
+import com.example.restapidevelopment.repo.PersonRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,9 +14,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.example.restapidevelopment.entity.Person;
-import com.example.restapidevelopment.exception.UnAuthenticException;
-import com.example.restapidevelopment.repo.PersonRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PersonJPAControllerTest {
@@ -69,7 +68,8 @@ class PersonJPAControllerTest {
     @MethodSource("getIntValues")
     void findById(Integer val) {
         when(personRepository.findById(anyInt())).thenReturn(Optional.of(setUp().get(0)));
-        ResponseEntity<?> entity = personJPAController.findById(val);
+        ResponseEntity entity = personJPAController.findById(val);
+        Person person = (Person) entity.getBody();
         assertEquals( HttpStatus.OK,entity.getStatusCode());
     }
 
@@ -77,7 +77,7 @@ class PersonJPAControllerTest {
     void deleteById() {
         when(personRepository.existsById(anyInt())).thenReturn(true);
         doNothing().when(personRepository).deleteById(anyInt());
-        ResponseEntity<?> entity = personJPAController.deleteById(123);
+        ResponseEntity entity = personJPAController.deleteById(123);
         String result = (String) entity.getBody();
         assertEquals( HttpStatus.OK ,entity.getStatusCode());
         assertEquals(true,result.contains("123"));
@@ -87,7 +87,7 @@ class PersonJPAControllerTest {
     void create() {
         when(personRepository.saveAndFlush(any(Person.class))).thenReturn(setUp().get(0));
         when(personRepository.existsById(anyInt())).thenReturn(true);
-        ResponseEntity<?> entity = personJPAController.create(setUp().get(0));
+        ResponseEntity entity = personJPAController.create(setUp().get(0));
         String result = (String) entity.getBody();
         assertEquals(HttpStatus.CREATED,entity.getStatusCode());
         assertEquals(true,result.contains("12345"));
@@ -107,7 +107,8 @@ class PersonJPAControllerTest {
     @Test
     void update() {
         when(personRepository.save(any(Person.class))).thenReturn(setUp().get(0));
-        ResponseEntity<?> entity = personJPAController.update(setUp().get(0));
+        ResponseEntity entity = personJPAController.update(setUp().get(0));
+        String result = (String) entity.getBody();
         assertEquals(HttpStatus.CREATED,entity.getStatusCode());
     }
 }

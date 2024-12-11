@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/book")
 public class BookController {
-    private static final List<Book> bookList = new ArrayList<>();
+    private static List<Book> bookList = new ArrayList<>();
 
     static {
-        bookList.add(Book.builder().id(12345L).author("Rao").name("Black book").build());
-        bookList.add(Book.builder().id(12346L).author("Gosling").name("Java").build());
+        bookList.add(Book.builder().id(12345).author("Rao").name("Black book").build());
+        bookList.add(Book.builder().id(12346).author("Gosling").name("Java").build());
 
     }
 
     //localhost:8384/book/list
     @GetMapping("/list")
     public ResponseEntity<List<Book>> getBookList() {
-        ResponseEntity<List<Book>> responseEntity = new ResponseEntity<>(bookList, HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity<>(bookList, HttpStatus.OK);
         log.info(responseEntity);
         return responseEntity;
     }
@@ -38,11 +38,11 @@ public class BookController {
     public ResponseEntity<Book> getBookById(@PathVariable int id) {
         Optional<Book> optionalBook = bookList.stream().filter(b -> b.getId() == id).findAny();
         if (optionalBook.isPresent()) {
-            ResponseEntity<Book> responseEntity = new ResponseEntity<>(optionalBook.get(), HttpStatus.OK);
+            ResponseEntity responseEntity = new ResponseEntity<Book>(optionalBook.get(), HttpStatus.OK);
             log.info(responseEntity);
             return responseEntity;
         }
-        ResponseEntity<Book> responseEntity1 = new ResponseEntity<>(Book.builder().build(), HttpStatus.NOT_FOUND);
+        ResponseEntity responseEntity1 = new ResponseEntity<>(Book.builder().build(), HttpStatus.NOT_FOUND);
         log.info(responseEntity1);
         return responseEntity1;
     }
@@ -66,11 +66,12 @@ public class BookController {
    // localhost:8384/book/update
     @PutMapping("/update")
     public ResponseEntity<Book> updateBook(@RequestBody Book book) {
-           Book updatedUser = bookList.stream().filter(u-> u.getId().equals(book.getId())).peek(up->{
+           Book updatedUser = bookList.stream().filter(u->u.getId()==book.getId()).map(up->{
             up.setAuthor(book.getAuthor());
             up.setName(book.getName());
-           }).collect(Collectors.toList()).get(0);
-        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+            return up;
+        }).collect(Collectors.toList()).get(0);
+        return new ResponseEntity<Book>(updatedUser, HttpStatus.CREATED);
     }
 
 
